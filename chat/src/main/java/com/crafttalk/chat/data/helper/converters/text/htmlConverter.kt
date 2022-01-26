@@ -2,8 +2,8 @@ package com.crafttalk.chat.data.helper.converters.text
 
 import android.os.Build
 import android.text.Html
-import android.util.Log
 import com.crafttalk.chat.domain.entity.tags.*
+import com.crafttalk.chat.utils.ChatLog
 import com.crafttalk.chat.utils.ChatParams
 import com.crafttalk.chat.utils.ClickableLinkMode
 import java.util.regex.Matcher
@@ -214,7 +214,7 @@ fun String.convertFromHtmlTextToNormalString(listTag: ArrayList<Tag>): String {
                                 listAttrsTag.add(it)
                             }
                         } catch (ex: StringIndexOutOfBoundsException) {
-                            Log.e("FAIL_PARSE", "getAttrTag fail - ${ex.message}")
+                            ChatLog.e("FAIL_PARSE", "getAttrTag fail - ${ex.message}")
                         }
                     }
                 } else {

@@ -1,10 +1,10 @@
 package com.crafttalk.chat.domain.interactors
 
-import android.util.Log
 import com.crafttalk.chat.domain.entity.auth.Visitor
 import com.crafttalk.chat.domain.repository.IAuthRepository
 import com.crafttalk.chat.presentation.ChatEventListener
 import com.crafttalk.chat.utils.AuthType
+import com.crafttalk.chat.utils.ChatLog
 import com.crafttalk.chat.utils.ChatParams
 import com.crafttalk.chat.utils.ChatStatus
 import java.io.File
@@ -140,7 +140,7 @@ class AuthInteractor
             notificationInteractor.unsubscribeNotification()
             authRepository.logOut(filesDir)
         } catch (ex: Exception) {
-            Log.e("FAIL logOut", "${ex.message}")
+            ChatLog.e("FAIL logOut", "${ex.message}")
         }
         conditionInteractor.clearDataChatState()
         visitorInteractor.clearDataVisitor()

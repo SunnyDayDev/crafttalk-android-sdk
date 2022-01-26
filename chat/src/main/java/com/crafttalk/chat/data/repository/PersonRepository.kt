@@ -1,13 +1,13 @@
 package com.crafttalk.chat.data.repository
 
 import android.database.sqlite.SQLiteConstraintException
-import android.util.Log
 import com.crafttalk.chat.data.api.rest.PersonApi
 import com.crafttalk.chat.data.helper.network.toData
 import com.crafttalk.chat.data.local.db.dao.MessagesDao
 import com.crafttalk.chat.data.local.db.dao.PersonDao
 import com.crafttalk.chat.data.local.db.entity.PersonEntity
 import com.crafttalk.chat.domain.repository.IPersonRepository
+import com.crafttalk.chat.utils.ChatLog
 import com.crafttalk.chat.utils.ChatParams
 import com.crafttalk.chat.utils.OperatorNameMode
 import com.crafttalk.chat.utils.OperatorPreviewMode
@@ -59,7 +59,7 @@ class PersonRepository
                 else -> null
             }
         } catch (ex: Exception) {
-            Log.e("FAIL_REQUEST", "getPersonPreview fail: ${ex.message}")
+            ChatLog.e("FAIL_REQUEST", "getPersonPreview fail: ${ex.message}")
             null
         }
     }

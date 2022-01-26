@@ -16,7 +16,6 @@ import android.speech.SpeechRecognizer.*
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
-import android.util.Log
 import android.util.TypedValue
 import android.view.*
 import android.widget.*
@@ -54,6 +53,7 @@ import com.crafttalk.chat.presentation.helper.permission.requestPermissionWithAc
 import com.crafttalk.chat.presentation.helper.ui.hideSoftKeyboard
 import com.crafttalk.chat.presentation.model.*
 import com.crafttalk.chat.utils.ChatAttr
+import com.crafttalk.chat.utils.ChatLog
 import com.crafttalk.chat.utils.TypeFailUpload
 import com.redmadrobot.inputmask.MaskedTextChangedListener
 import kotlinx.android.synthetic.main.com_crafttalk_chat_include_replied_message.view.*
@@ -411,7 +411,7 @@ class ChatView: RelativeLayout, View.OnClickListener, BottomSheetFileViewer.List
             }
         }
         viewModel.displayableUIObject.observe(lifecycleOwner) {
-            Log.d("CHAT_VIEW", "displayableUIObject - ${it};")
+            ChatLog.d("CHAT_VIEW", "displayableUIObject - ${it};")
             when (it) {
                 DisplayableUIObject.NOTHING -> {
                     chat_place.visibility = View.GONE

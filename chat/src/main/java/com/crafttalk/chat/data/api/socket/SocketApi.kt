@@ -1,7 +1,6 @@
 package com.crafttalk.chat.data.api.socket
 
 import android.content.Context
-import android.util.Log
 import com.crafttalk.chat.data.local.db.dao.MessagesDao
 import com.crafttalk.chat.data.local.db.entity.MessageEntity
 import com.crafttalk.chat.domain.entity.auth.Visitor
@@ -127,17 +126,17 @@ class SocketApi constructor(
     private fun setAllListeners(socket: Socket) {
 
         socket.on("connect") {
-            Log.d(TAG_SOCKET_EVENT, "connect connecting - ${socket.connected()}")
+            ChatLog.d(TAG_SOCKET_EVENT, "connect connecting - ${socket.connected()}")
             authenticationUser(socket)
         }
 
         socket.on("reconnect") {
-            Log.d(TAG_SOCKET_EVENT, "reconnect")
+            ChatLog.d(TAG_SOCKET_EVENT, "reconnect")
             chatInternetConnectionListener?.reconnect()
         }
 
         socket.on("hide") {
-            Log.d(TAG_SOCKET_EVENT, "hide")
+            ChatLog.d(TAG_SOCKET_EVENT, "hide")
             isAuthorized = false
             isSynchronized = false
             failAuthUiFun()
@@ -147,7 +146,7 @@ class SocketApi constructor(
         }
 
         socket.on("authorized") {
-            Log.d(TAG_SOCKET_EVENT, "authorized")
+            ChatLog.d(TAG_SOCKET_EVENT, "authorized")
             isAuthorized = true
             successAuthUiFun()
             viewModelScope.launch {
@@ -160,7 +159,7 @@ class SocketApi constructor(
         }
 
         socket.on("authorization-required") {
-            Log.d(TAG_SOCKET_EVENT, "authorization-required")
+            ChatLog.d(TAG_SOCKET_EVENT, "authorization-required")
             if (it[0] as Boolean) {
                 socket.emit(
                     "authorize",
@@ -172,9 +171,9 @@ class SocketApi constructor(
 
         socket.on("message") {
             viewModelScope.launch {
-                Log.d(TAG_SOCKET, "message, size = ${it.size}; it = $it")
+                ChatLog.d(TAG_SOCKET, "message, size = ${it.size}; it = $it")
                 val messageJson = it[0] as JSONObject
-                Log.d(TAG_SOCKET_EVENT, "json message___ methon message - $messageJson")
+                ChatLog.d(TAG_SOCKET_EVENT, "json message___ methon message - $messageJson")
                 val messageSocket = gson.fromJson(messageJson.toString().replace("&amp;", "&"), NetworkMessage::class.java)
                 when (messageSocket.messageType) {
                     MessageType.OPERATOR_IS_TYPING.valueType -> chatEventListener?.operatorStartWriteMessage()
@@ -199,33 +198,33 @@ class SocketApi constructor(
         }
 
         socket.on(Socket.EVENT_CONNECT) {
-            Log.d(TAG_SOCKET_EVENT, "EVENT_CONNECT")
+            ChatLog.d(TAG_SOCKET_EVENT, "EVENT_CONNECT")
             chatInternetConnectionListener?.connect()
         }
         socket.on(Socket.EVENT_DISCONNECT) {
-            Log.d(TAG_SOCKET_EVENT, "EVENT_DISCONNECT")
+            ChatLog.d(TAG_SOCKET_EVENT, "EVENT_DISCONNECT")
             isAuthorized = false
             isSynchronized = false
             chatInternetConnectionListener?.lossConnection()
         }
         socket.on(Socket.EVENT_CONNECT_ERROR) {
-            Log.d(TAG_SOCKET_EVENT, "EVENT_CONNECT_ERROR")
+            ChatLog.d(TAG_SOCKET_EVENT, "EVENT_CONNECT_ERROR")
             isAuthorized = false
             isSynchronized = false
             chatInternetConnectionListener?.failConnect()
         }
         socket.on(Socket.EVENT_RECONNECT_ERROR) {
-            Log.d(TAG_SOCKET_EVENT, "EVENT_RECONNECT_ERROR")
+            ChatLog.d(TAG_SOCKET_EVENT, "EVENT_RECONNECT_ERROR")
             isAuthorized = false
             isSynchronized = false
         }
         socket.on(Socket.EVENT_RECONNECT_FAILED) {
-            Log.d(TAG_SOCKET_EVENT, "EVENT_RECONNECT_FAILED")
+            ChatLog.d(TAG_SOCKET_EVENT, "EVENT_RECONNECT_FAILED")
             isAuthorized = false
             isSynchronized = false
         }
         socket.on(Socket.EVENT_CONNECT_TIMEOUT) {
-            Log.d(TAG_SOCKET_EVENT, "EVENT_CONNECT_TIMEOUT")
+            ChatLog.d(TAG_SOCKET_EVENT, "EVENT_CONNECT_TIMEOUT")
             isAuthorized = false
             isSynchronized = false
             failAuthUiFun()

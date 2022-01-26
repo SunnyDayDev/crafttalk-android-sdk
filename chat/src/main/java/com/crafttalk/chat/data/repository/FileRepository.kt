@@ -1,7 +1,6 @@
 package com.crafttalk.chat.data.repository
 
 import android.graphics.Bitmap
-import android.util.Log
 import com.crafttalk.chat.data.ApiParams
 import com.crafttalk.chat.data.ContentTypeValue
 import com.crafttalk.chat.data.api.rest.FileApi
@@ -13,6 +12,7 @@ import com.crafttalk.chat.domain.entity.auth.Visitor
 import com.crafttalk.chat.domain.entity.file.NetworkBodyStructureUploadFile
 import com.crafttalk.chat.domain.entity.file.TypeUpload
 import com.crafttalk.chat.domain.repository.IFileRepository
+import com.crafttalk.chat.utils.ChatLog
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -47,13 +47,13 @@ class FileRepository
         request.enqueue(object : Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {
                 handleUploadFile(response.code(), response.message())
-                Log.d("UPLOAD_TEST", "Success upload - ${response.message()} ${response.body()}; ${response.code()}; ${request.request().url()}")
+                ChatLog.d("UPLOAD_TEST", "Success upload - ${response.message()} ${response.body()}; ${response.code()}; ${request.request().url()}")
             }
             override fun onFailure(call: Call<String>, t: Throwable) {
                 when (t.message) {
                     TIMEOUT_CONST -> handleUploadFile(TIMEOUT_CODE, "")
                 }
-                Log.d("UPLOAD_TEST", "Fail upload! - ${t.message};")
+                ChatLog.d("UPLOAD_TEST", "Fail upload! - ${t.message};")
             }
         })
     }
@@ -79,13 +79,13 @@ class FileRepository
         request.enqueue(object : Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {
                 handleUploadFile(response.code(), response.message())
-                Log.d("UPLOAD_TEST", "Success upload - ${response.message()} ${response.body()}; ${response.code()}; ${request.request().url()}")
+                ChatLog.d("UPLOAD_TEST", "Success upload - ${response.message()} ${response.body()}; ${response.code()}; ${request.request().url()}")
             }
             override fun onFailure(call: Call<String>, t: Throwable) {
                 when (t.message) {
                     TIMEOUT_CONST -> handleUploadFile(TIMEOUT_CODE, "")
                 }
-                Log.d("UPLOAD_TEST", "Fail upload! - ${t.message};")
+                ChatLog.d("UPLOAD_TEST", "Fail upload! - ${t.message};")
             }
         })
     }

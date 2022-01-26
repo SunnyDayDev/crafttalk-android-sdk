@@ -1,7 +1,7 @@
 package com.crafttalk.chat.data.helper.network
 
 import android.os.Build
-import android.util.Log
+import com.crafttalk.chat.utils.ChatLog
 import okhttp3.OkHttpClient
 import okhttp3.TlsVersion
 import java.io.IOException
@@ -30,7 +30,7 @@ class TLSSocketFactory(
                     sslContext.init(null, arrayOf(trustManager), null)
                     sslSocketFactory(TLSSocketFactory(sslContext.socketFactory), trustManager)
                 } catch (e: Exception) {
-                    Log.e("ERROR_TLS", "Error while setting TLS 1.2 compatibility")
+                    ChatLog.e("ERROR_TLS", "Error while setting TLS 1.2 compatibility")
                 }
             }
         }

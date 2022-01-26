@@ -64,7 +64,8 @@ object Chat {
         fileConnectTimeout: Long? = null,
         fileReadTimeout: Long? = null,
         fileWriteTimeout: Long? = null,
-        fileCallTimeout: Long? = null
+        fileCallTimeout: Long? = null,
+        logger: Logger? = DefaultLogger(),
     ) {
         ChatParams.authMode = authType
         ChatParams.initialMessageMode = initialMessageMode
@@ -83,6 +84,7 @@ object Chat {
         ChatParams.fileReadTimeout = fileReadTimeout
         ChatParams.fileWriteTimeout = fileWriteTimeout
         ChatParams.fileCallTimeout = fileCallTimeout
+        ChatLog.logger = logger
         initDI(context)
     }
 
